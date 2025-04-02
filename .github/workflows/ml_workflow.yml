@@ -19,11 +19,20 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, 
       # so your job can access it
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
-          python-version: '3.11.x'
+            enable-cache: true
+            cache-dependency-glob: "uv.lock"
 
-      # Runs a single command using the runners shell
-      - name: Run Hello
-        run: echo Hello, Medium!
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+            python-version-file: "pyproject.toml"
+
+      - name: Run model training unit tests
+        run: |
+            uv run pytest tests/unit_test_train_model.py
+
