@@ -62,7 +62,10 @@ jobs:
             uv run train_model.py
 
         - name: Upload artifacts
-          run: echo "escolha onde vc quer guardar os artefatos"
+          uses: actions/upload-artifact@v3
+          with:
+            name: ml-model
+            path: models/
 
         - name: Agendar
           run: echo "Você pode fazer o upload de uma DAG do Airflow em uma pasta específica"
