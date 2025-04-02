@@ -36,3 +36,40 @@ jobs:
         run: |
             uv run pytest unit_test_train_model.py
 
+  CD:
+        needs: CI
+
+        runs-on: ubuntu-latest
+
+        steps:
+        # Checks-out your repository under $GITHUB_WORKSPACE, 
+        # so your job can access it
+        - uses: actions/checkout@v4
+
+        - name: Install uv
+          uses: astral-sh/setup-uv@v5
+          with:
+            enable-cache: true
+            cache-dependency-glob: "uv.lock"
+
+        - name: Set up Python
+          uses: actions/setup-python@v5
+          with:
+                python-version-file: "pyproject.toml"
+
+        - name: Train model
+          run: |
+            uv run train_model.py
+
+        - name: Upload artifacts
+          run: echo "escolha onde vc quer guardar os artefatos"
+
+        - name: Agendar
+          run: echo "Você pode fazer o upload de uma DAG do Airflow em uma pasta específica"
+
+        - name: Run deploy tests
+          run: echo "Aqui vc executa um teste para checar os artefatos"
+          
+
+        
+
