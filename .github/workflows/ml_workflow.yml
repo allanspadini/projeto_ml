@@ -34,5 +34,5 @@ jobs:
 
       - name: Run model training unit tests
         run: |
-            uv run pytest tests/unit_test_train_model.py
+            uv run pytest unit_test_train_model.py
 
