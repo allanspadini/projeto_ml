@@ -62,10 +62,11 @@ jobs:
             uv run train_model.py
 
         - name: Upload artifacts
-          uses: actions/upload-artifact@v3
+          uses: actions/upload-artifact@v4
           with:
             name: ml-model
-            path: models/
+            path: models/modelo.pkl
+            retention-days: 90
 
         - name: Agendar
           run: echo "Você pode fazer o upload de uma DAG do Airflow em uma pasta específica"
